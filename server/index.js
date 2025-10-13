@@ -4,8 +4,8 @@ const path = require("path");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
-const authRoutes = require("./routes/auth");
-const speechRoutes = require("./routes/speech");
+const authRoutes = require("./routes/auth.routes");
+const speechRoutes = require("./routes/speech.routes");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -46,6 +46,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`SpeakWise Server running on port ${PORT}`);
-    console.log(`Database: MongoDB Atlas`);
+    console.log(`Database: MongoDB`);
     console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
 });

@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
     try {
-        // const conn = await mongoose.connect(process.env.MONGODB_URI);
-        const conn = await mongoose.connect(
-            "mongodb://127.0.0.1:27017/SpeakWiseDB"
-        );
+        const conn = await mongoose.connect(process.env.MONGODB_URI);
         console.log("MongoDB Connection Status:");
         console.log(`- Connected to: ${conn.connection.host}`);
         console.log(`- Database: ${conn.connection.name}`);
