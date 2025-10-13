@@ -7,10 +7,7 @@ const AnalysisReport = require("../models/AnalysisReport");
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(
-            process.env.MONGODB_URI ||
-                "mongodb+srv://ayush23chaudhary:JbmiDXSwZsvJBfIH@client.y5s93z3.mongodb.net/speakwise"
-        );
+        await mongoose.connect(process.env.MONGODB_URI);
         console.log("Connected to MongoDB Atlas");
     } catch (error) {
         console.error("Database connection failed:", error.message);
