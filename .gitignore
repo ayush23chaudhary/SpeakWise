@@ -156,9 +156,9 @@ data/external/
 # Model artifacts (trained models, weights, scalers)
 # These should be versioned with DVC or stored in a model registry (e.g., MLflow)
 # but kept out of Git for size and sensitivity.
-models/
+ml_backend/models/
 !models/.gitkeep # Keep the directory but ignore its contents
-models/*
+ml_backend/models/*
 # Exception: If you have a .gitkeep or specific small config files you want to keep inside 'models/',
 # you'll need to add exceptions like:
 # !models/README.md
