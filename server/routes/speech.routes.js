@@ -7,6 +7,28 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
+// Azure Speech Service Route
+router.get("/speech-token", auth, async (req, res) => {
+    try {
+        const speechKey = process.env.AZURE_SPEECH_KEY;
+        const speechRegion = process.env.AZURE_SPEECH_REGION;
+        
+        if (!speechKey || !speechRegion) {
+            return res.status(400).json({ 
+                error: 'Azure Speech Service credentials not configured' 
+            });
+        }
+
+        res.json({ 
+            token: speechKey,
+            region: speechRegion
+        });
+    } catch (error) {
+        console.error('Error getting speech token:', error);
+        res.status(500).json({ error: 'Failed to get speech token' });
+    }
+});
+
 // Configure multer for audio file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

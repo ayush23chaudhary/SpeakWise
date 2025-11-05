@@ -28,6 +28,11 @@ const PerformanceStudio = ({ onAnalysisComplete }) => {
 
   const startRecording = async () => {
     try {
+      // Reset everything first
+      setRecordingDuration(0);
+      startTimeRef.current = null;
+      setVolume(0);
+      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
       
@@ -54,6 +59,8 @@ const PerformanceStudio = ({ onAnalysisComplete }) => {
       startVolumeMonitoring(stream);
       startDurationTimer();
       
+      console.log('Recording started:', { startTime: startTimeRef.current });
+      
     } catch (error) {
       console.error('Error accessing microphone:', error);
       alert('Unable to access microphone. Please check your permissions.');
@@ -65,6 +72,7 @@ const PerformanceStudio = ({ onAnalysisComplete }) => {
       mediaRecorderRef.current.stop();
       streamRef.current.getTracks().forEach(track => track.stop());
       setIsRecording(false);
+      startTimeRef.current = null; // Reset the start time
       
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -95,14 +103,27 @@ const PerformanceStudio = ({ onAnalysisComplete }) => {
   };
 
   const startDurationTimer = () => {
-    const updateDuration = () => {
-      if (isRecording && startTimeRef.current) {
+    if (!startTimeRef.current) {
+      startTimeRef.current = Date.now();
+    }
+  };
+
+  // Use useEffect for the timer
+  useEffect(() => {
+    let intervalId;
+    
+    if (isRecording && startTimeRef.current) {
+      intervalId = setInterval(() => {
         setRecordingDuration(Math.floor((Date.now() - startTimeRef.current) / 1000));
-        setTimeout(updateDuration, 1000);
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
       }
     };
-    updateDuration();
-  };
+  }, [isRecording]);
 
   const playRecording = () => {
     if (audioRef.current) {
