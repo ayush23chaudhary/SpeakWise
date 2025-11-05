@@ -1,5 +1,8 @@
 # Dependencies
 node_modules/
+*/node_modules/
+client/node_modules/
+server/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -10,6 +13,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+client/.env
+server/.env
+*/.env
 
 # Build outputs
 dist/
