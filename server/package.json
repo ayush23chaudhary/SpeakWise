@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "setup-db": "node scripts/setup-database.js",
-    "test-db": "node -e \"require('./config/database')(); setTimeout(() => process.exit(0), 2000)\""
+    "test-db": "node -e \"require('./config/db')(); setTimeout(() => process.exit(0), 2000)\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
